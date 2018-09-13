@@ -1,0 +1,140 @@
+---
+title: "Bike"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
+setwd("C:/Users/ktm/Documents/My")
+bike_tr <- read.csv("train.csv")
+bike_te <- read.csv("test.csv")
+sa <- read.csv("sampleSubmission.csv")
+```
+
+```{r}
+dim(bike_tr); dim(bike_te)
+head(bike_tr); head(bike_te)
+str(bike_tr); str(bike_tr)
+colSums(is.na(bike_tr)); colSums(is.na(bike_te))
+
+```
+
+```{r}
+trA<-bike_tr
+teA<-bike_te
+
+trA <- subset(bike_tr, select = -c(casual, registered))
+names(trA); names(teA)
+
+```
+
+```{r}
+trA$season <- as.factor(trA$season)
+trA$holiday <- as.factor(trA$holiday)
+trA$workingday <- as.factor(trA$workingday)
+trA$weather <- as.factor(trA$weather)
+trA$datetime <- as.POSIXct(trA$datetime, format ="%Y-%m-%d %H:%M:%S")
+
+teA$season <- as.factor(teA$season)
+teA$holiday <- as.factor(teA$holiday)
+teA$workingday <- as.factor(teA$workingday)
+teA$weather <- as.factor(teA$weather)
+teA$datetime <- as.POSIXct(teA$datetime, format ="%Y-%m-%d %H:%M:%S")
+
+```
+
+```{r}
+plot(trA$datetime, trA$count)
+plot(trA$temp, trA$count)
+plot(trA$humidity, trA$count)
+plot(trA$windspeed, trA$count)
+```
+
+```{r}
+library(corrplot)
+sel <- c("temp","atemp","humidity","windspeed","count")
+trA_subset <- trA[,sel]
+tr_cor <- cor(trA_subset)
+col3 <- colorRampPalette(c("green", "white", "red"))
+corrplot(tr_cor, method = "color",col=col3(200),tl.col = "black" , addCoef.col ="black")
+```
+
+```{r}
+trA$day <- strftime(trA$datetime, "%d")
+trA$month <- strftime(trA$datetime, "%m")
+trA$year <- strftime(trA$datetime, "%Y")
+trA$weekday <- strftime(trA$datetime, "%u")
+trA$hour <- substring(trA$datetime, 12,13)
+trA$hour <- as.factor(trA$hour)
+trA$day <- as.factor(trA$day)
+trA$weekday <- as.factor(trA$weekday)
+trA$year <- as.factor(trA$year)
+trA$month <- as.factor(trA$month)
+head(trA)
+
+teA$day <- strftime(teA$datetime, "%d")
+teA$month <- strftime(teA$datetime, "%m")
+teA$year <- strftime(teA$datetime, "%Y")
+teA$weekday <- strftime(teA$datetime, "%u")
+teA$hour <- substring(teA$datetime, 12,13)
+teA$hour <- as.factor(teA$hour)
+teA$day <- as.factor(teA$day)
+teA$weekday <- as.factor(teA$weekday)
+teA$year <- as.factor(teA$year)
+teA$month <- as.factor(teA$month)
+head(teA)
+
+```
+
+```{r}
+library(ggplot2)
+g <- ggplot(trA, aes(hour, count))
+g+geom_point(col=2)
+```
+
+```{r}
+g <- ggplot(trA, aes(day, count))
+g+geom_point(col=3)
+
+```
+
+```{r}
+trA <- trA[,-c(1)]
+teA <- teA[,-c(1)]
+names(trA); names(teA)
+str(trA); str(teA)
+```
+
+```{r}
+Lm <- lm(count~., data=trA)
+step(Lm, direction = "both")
+
+```
+
+```{r}
+perval <- lm(count ~ weather + temp + atemp + humidity + windspeed + 
+    month + year + weekday + hour, data = trA)
+sa$count <- predict(perval, teA)
+sa$count[sa$count < 0] <- 0
+perval
+
+sum((sa$count- trA$count)^2)/nrow(trA) # RMSE
+
+```
+
+
+```{r}
+#library(randomForest)
+#rf <- randomForest(count ~ season + weather + temp + atemp + humidity +windspeed + 
+#                     weekday + hour + year, data = trA)
+#rf
+#sa$count <- predict(perval, teA)
+#sa$count[sa$count < 0] <- 0
+#write.csv(sa, file="rf.csv", row.names = FALSE)
+
+
+
+```
+
+### 0.635
+
