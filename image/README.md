@@ -5,3 +5,4 @@
 # MNIST
 # [CNN](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/image/image3.ipynb)
 # [object_detection](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/image/image2.ipynb)
+# 해볼것 (영상, 웹캠 + )
