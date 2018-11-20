@@ -7,4 +7,4 @@
 
 # [3주차](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/Deep%20learning/모두의%20딥러닝3.ipynb)
 ### [BATCH NORMALIZATION 이해하기](https://de-novo.org/2018/05/28/batch-normalization-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0/)
-### [](http://gomguard.tistory.com/184)
+### [초기화](http://gomguard.tistory.com/184)
