@@ -11,3 +11,4 @@
 ### [RNN](https://medium.com/qandastudy/mathpresso-%EB%A8%B8%EC%8B%A0-%EB%9F%AC%EB%8B%9D-%EC%8A%A4%ED%84%B0%EB%94%94-12-rnn-recurrent-neural-nerwork-1-b28968016ca9)
 ### [RNN2](http://aikorea.org/blog/rnn-tutorial-1/)
 ### [RNN실습](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/Deep%20learning/RNN.ipynb)
+### [RNN예제](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/Deep%20learning/.ipynb)
