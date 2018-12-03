@@ -10,4 +10,7 @@ CNN는 같은 레이어 크기의 Fully Connected Neural Network와 비교해 �
 
 
 # [object_detection](https://colab.research.google.com/github/songmoo/DataAnalysis/blob/master/image/image2.ipynb)
+### [참고](http://saneblog.tistory.com/9)
+### [참고2](http://crystalcube.co.kr/192)
+### [참고3](https://kangbk0120.github.io/articles/2017-07/first-gan)
 
